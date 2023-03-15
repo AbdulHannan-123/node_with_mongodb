@@ -27,6 +27,18 @@ mongoose.connect('mongodb+srv://ali:ali123@cluster0.xtv74tc.mongodb.net/notesdb'
                 title: " my node",
                 content: "this is content"
 
+            });const newNote = new Note({
+                id: "0001",
+                userid: "hannan@gmail.com",
+                title: " my node",
+                content: "this is content"
+
+            });const newNote = new Note({
+                id: "0001",
+                userid: "hannan@gmail.com",
+                title: " my node",
+                content: "this is content"
+
             });
             await newNote.save();
 
