@@ -8,32 +8,20 @@ const Note = require('./models/Note');
 
 const mongoose = require('mongoose');   // by using this i can connect the my mongoDB
 
-mongoose.connect('mongodb+srv://ali:ali123@cluster0.xtv74tc.mongodb.net/notesdb')     // need to pass the connection string
+mongoose.connect("mongodb+srv://ali:ali123@cluster0.xtv74tc.mongodb.net/notesdb")     // need to pass the connection string
     .then(function () {     // when connection success then show these pages outher wise dont
         app.get("/", function (req, res) {
             res.send("This is the homepage_2");
         });   
 
-        app.get("/notes/list", async function (req, res) {
+        app.get("/notes", async function (req, res) {
             var notes = await Note.find();   // find all type Note in db
             res.json(notes);
         });
 
         app.get("/notes/add", async function (req, res) {
 
-            const newNote = new Note({
-                id: "0001",
-                userid: "hannan@gmail.com",
-                title: " my node",
-                content: "this is content"
-
-            });const newNote = new Note({
-                id: "0001",
-                userid: "hannan@gmail.com",
-                title: " my node",
-                content: "this is content"
-
-            });const newNote = new Note({
+            const newNote = Note({
                 id: "0001",
                 userid: "hannan@gmail.com",
                 title: " my node",
