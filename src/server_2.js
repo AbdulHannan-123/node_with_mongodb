@@ -6,6 +6,19 @@ const app = express();    // we call express as function  and stroe it in app   
 
 const Note = require('./models/Note');
 
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: false}));
+
+//if extended true hoga to tou nented objects de skty hain
+// if  flase nented objects ko solve nhi karayga              // obj k ander obj
+// {
+//     Object:{
+
+//     }
+// }
+
+app.use(bodyParser.json());
+
 const mongoose = require('mongoose');   // by using this i can connect the my mongoDB
 
 mongoose.connect("mongodb+srv://ali:ali123@cluster0.xtv74tc.mongodb.net/notesdb")     // need to pass the connection string
@@ -14,23 +27,24 @@ mongoose.connect("mongodb+srv://ali:ali123@cluster0.xtv74tc.mongodb.net/notesdb"
             res.send("This is the homepage_2");
         });   
 
-        app.get("/notes/list", async function (req, res) {
-            var notes = await Note.find();   // find all type Note in db
+        app.get("/notes/list/:userid", async function (req, res) {      // to find the user by userid dynamically 
+            var notes = await Note.find({ userid : req.params.userid});   // find all type Note in db not fint userid wit given user id
             res.json(notes);
         });
 
-        app.get("/notes/add", async function (req, res) {
+        // app.get("/notes/add", async function (req, res) {   its uses the user to ender by hand
+        app.post("/notes/add", async function (req, res) {
 
             const newNote = new Note({
-                id: "0002",     
-                userid: "node@gmail.com",
-                title: " my node 2",
-                content: "this is content"
+                id: req.body.id,     
+                userid: req.body.userid,
+                title: req.body.title,
+                content: req.body.content
 
             });
             await newNote.save();    // this is also a promise
 
-            const response = {message: "new node created"};  //after the data added this message is shown to user
+            const response = {message: "new node created " + `id: ${req.body.id}`};  //after the data added this message is shown to user
 
             res.json(response);
         });
