@@ -14,23 +14,23 @@ mongoose.connect("mongodb+srv://ali:ali123@cluster0.xtv74tc.mongodb.net/notesdb"
             res.send("This is the homepage_2");
         });   
 
-        app.get("/notes", async function (req, res) {
+        app.get("/notes/list", async function (req, res) {
             var notes = await Note.find();   // find all type Note in db
             res.json(notes);
         });
 
         app.get("/notes/add", async function (req, res) {
 
-            const newNote = Note({
-                id: "0001",
-                userid: "hannan@gmail.com",
-                title: " my node",
+            const newNote = new Note({
+                id: "0002",     
+                userid: "node@gmail.com",
+                title: " my node 2",
                 content: "this is content"
 
             });
-            await newNote.save();
+            await newNote.save();    // this is also a promise
 
-            const response = {message: "new node created"};
+            const response = {message: "new node created"};  //after the data added this message is shown to user
 
             res.json(response);
         });
