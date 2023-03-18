@@ -24,16 +24,24 @@ const mongoose = require('mongoose');   // by using this i can connect the my mo
 mongoose.connect("mongodb+srv://ali:ali123@cluster0.xtv74tc.mongodb.net/notesdb")     // need to pass the connection string
     .then(function () {     // when connection success then show these pages outher wise dont
         app.get("/", function (req, res) {
-            res.send("This is the homepage_2");
+            // res.send("This is the homepage_2");
+            const response = {message : "Api Works!"};
+            res.json(response);
         });   
 
-        app.get("/notes/list/:userid", async function (req, res) {      // to find the user by userid dynamically 
-            var notes = await Note.find({ userid : req.params.userid});   // find all type Note in db not fint userid wit given user id
+        app.post("/notes/list", async function (req, res) {      // to find the user by userid dynamically 
+            var notes = await Note.find({ userid : req.body.userid});   // find all type Note in db not fint userid wit given user id
+            res.json(notes);
+        });
+        app.get("/notes/list/all", async function (req, res) {      // to find the user by userid dynamically 
+            var notes = await Note.find();   // find all type Note in db not fint userid wit given user id
             res.json(notes);
         });
 
         // app.get("/notes/add", async function (req, res) {   its uses the user to ender by hand
         app.post("/notes/add", async function (req, res) {
+
+            await Note.deleteOne({ id : req.body.id});
 
             const newNote = new Note({
                 id: req.body.id,     
@@ -45,6 +53,13 @@ mongoose.connect("mongodb+srv://ali:ali123@cluster0.xtv74tc.mongodb.net/notesdb"
             await newNote.save();    // this is also a promise
 
             const response = {message: "new node created " + `id: ${req.body.id}`};  //after the data added this message is shown to user
+
+            res.json(response);
+        });
+
+        app.post("/notes/delete", async function(req,res){
+            await Note.deleteOne({ id : req.body.id});
+            const response = {message: "node deleted " + `id: ${req.body.id}`};  //after the data added this message is shown to user
 
             res.json(response);
         });
