@@ -14,6 +14,7 @@ router.get("/list/all", async function (req, res) {      // to find the user by 
 });
 
 // app.get("/notes/add", async function (req, res) {   its uses the user to ender by hand
+
 router.post("/add", async function (req, res) {
 
     await Note.deleteOne({ id : req.body.id})
@@ -32,16 +33,15 @@ router.post("/add", async function (req, res) {
 });
 
 router.post("/delete", async function(req,res){
+
     await Note.deleteOne({ id : req.body.id});
+
     const response = {message: "node deleted " + `id: ${req.body.id}`};  //after the data added this message is shown to user
 
     res.json(response);
 });
 
-
-
 // now expoting the routes tou user all over
-
 module.exports = router;
 
 

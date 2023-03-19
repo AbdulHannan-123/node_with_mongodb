@@ -32,8 +32,6 @@ mongoose.connect("mongodb+srv://ali:ali123@cluster0.xtv74tc.mongodb.net/notesdb"
 
         const noteRouter = require('./routes/Note');
         app.use("/notes", noteRouter);
-
-        
     });
 
 
