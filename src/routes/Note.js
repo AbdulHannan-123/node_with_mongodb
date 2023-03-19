@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();        // picking up the router from his directorey
 
-const Node = require('./../models/Note');
+const Note = require('./../models/Note');
 
 
 router.post("/list", async function (req, res) {      // to find the user by userid dynamically 

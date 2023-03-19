@@ -38,6 +38,7 @@ mongoose.connect("mongodb+srv://ali:ali123@cluster0.xtv74tc.mongodb.net/notesdb"
 
 
 // Starting the server on a port
-app.listen(5000, function () {      // this is a port number to hamari app port 5000 pr run hojaegi it also give optional callback function // app 5000 pr run hojati ha to ye wala function auto run hojaega
-    console.log("server 2 is startted");
+const PORT = process.env.PORT || 5000;   // use the environment open port
+app.listen(PORT, function () {      // this is a port number to hamari app port 5000 pr run hojaegi it also give optional callback function // app 5000 pr run hojati ha to ye wala function auto run hojaega
+    console.log("server 2 is startted " + PORT);
 });
